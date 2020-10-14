@@ -7,6 +7,7 @@ import User from '../pages/User.vue'
 import Edit from '../pages/Edit.vue'
 import Myfollow from '../pages/Myfollow.vue'
 import Mycomment from '../pages/Mycomment.vue'
+import MyStar from '../pages/MyStar.vue'
 
 Vue.use(VueRouter)
 
@@ -19,11 +20,15 @@ const router = new VueRouter({
     { path: '/edit', component: Edit, name: 'edit' },
     { path: '/my-follow', component: Myfollow, name: 'my-follow' },
     { path: '/my-comment', component: Mycomment, name: 'my-comment' },
+    { path: '/my-star', component: MyStar, name: 'my-star' },
   ],
 })
 //全局全置守卫
+
+const authPath = ['/user', '/my-follow', '/my-comment', '/my-star', '/edit']
+;('to.path')
 router.beforeEach((to, from, next) => {
-  if (to.path === '/user') {
+  if (authPath.includes(to.path)) {
     let token = localStorage.getItem('token')
     if (token) {
       next()

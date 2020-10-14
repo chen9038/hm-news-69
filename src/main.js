@@ -9,9 +9,11 @@ import './styles/iconfont.css'
 import HmHeader from './componemts/HmHeader.vue'
 import HmLogo from './componemts/HmLogo.vue'
 import HmButton from './componemts/HmButton.vue'
+import HmPost from './componemts/HmPost.vue'
 Vue.component('hm-header', HmHeader)
 Vue.component('hm-logo', HmLogo)
 Vue.component('hm-button', HmButton)
+Vue.component('hm-post', HmPost)
 
 import {
   Field,

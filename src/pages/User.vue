@@ -40,6 +40,7 @@
         title="我的收藏"
         is-link
         value="文档/视频"
+        @click="$router.push('/my-star')"
       />
       <van-cell
         title="设置"
