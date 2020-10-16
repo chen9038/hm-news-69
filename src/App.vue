@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <!-- 出口 -->
+  <router-view></router-view>
 </template>
 
 <script>
