@@ -8,12 +8,13 @@ import Edit from '../pages/Edit.vue'
 import Myfollow from '../pages/Myfollow.vue'
 import Mycomment from '../pages/Mycomment.vue'
 import MyStar from '../pages/MyStar.vue'
+import Home from '../pages/Home.vue'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
-    { path: '/', redirect: '/Login' },
+    { path: '/', redirect: '/home' },
     { path: '/Login', component: Login, name: 'Login' },
     { path: '/Register', component: Register, name: 'Register' },
     { path: '/User', component: User, name: 'User' },
@@ -21,6 +22,7 @@ const router = new VueRouter({
     { path: '/my-follow', component: Myfollow, name: 'my-follow' },
     { path: '/my-comment', component: Mycomment, name: 'my-comment' },
     { path: '/my-star', component: MyStar, name: 'my-star' },
+    { path: '/home', component: Home, name: 'home' },
   ],
 })
 //全局全置守卫

@@ -37,7 +37,7 @@ export default {
   },
   created() {
     this.getMyfollowList()
-    // this.follow()
+    this.follow()
   },
   methods: {
     async getMyfollowList() {
@@ -61,11 +61,11 @@ export default {
         this.$toast.fail(message)
       }
 
+    },
+    async follow() {
+      let res = await this.$axios.get('/user_follows/19')
+      this.getMyfollowList()
     }
-    // async follow() {
-    //   let res = await this.$axios.get('/user_follows/2')
-    //   this.getMyfollowList()
-    // }
   }
 }
 </script>
