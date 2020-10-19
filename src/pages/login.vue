@@ -93,7 +93,11 @@ export default {
           localStorage.setItem('user_id', data.user.id)
           this.$toast.success(message)
           // this.$toast.success('登陆成功')
-          this.$router.push('/user')
+          if (this.$route.params.back) {
+            this.$router.back()
+          } else {
+            this.$router.push('/user')
+          }
         } else {
           this.$toast.fail(message)
           // this.$toast.fail('登陆失败')

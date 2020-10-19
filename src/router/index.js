@@ -9,6 +9,8 @@ import Myfollow from '../pages/Myfollow.vue'
 import Mycomment from '../pages/Mycomment.vue'
 import MyStar from '../pages/MyStar.vue'
 import Home from '../pages/Home.vue'
+import Detail from '../pages/Detail.vue'
+import Tabsedit from '../pages/Tabsedit.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +25,8 @@ const router = new VueRouter({
     { path: '/my-comment', component: Mycomment, name: 'my-comment' },
     { path: '/my-star', component: MyStar, name: 'my-star' },
     { path: '/home', component: Home, name: 'home' },
+    { path: '/detail/:id', component: Detail, name: 'detail' },
+    { path: '/tabsedit', component: Tabsedit, name: 'tabsedit' },
   ],
 })
 //全局全置守卫
