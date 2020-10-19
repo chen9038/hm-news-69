@@ -10,6 +10,10 @@ import HmHeader from './componemts/HmHeader.vue'
 import HmLogo from './componemts/HmLogo.vue'
 import HmButton from './componemts/HmButton.vue'
 import HmPost from './componemts/HmPost.vue'
+import HmComment from './componemts/HmComment.vue'
+import HmFloor from './componemts/HmFloor.vue'
+Vue.component('hm-floor', HmFloor)
+Vue.component('hm-comment', HmComment)
 Vue.component('hm-header', HmHeader)
 Vue.component('hm-logo', HmLogo)
 Vue.component('hm-button', HmButton)
@@ -29,8 +33,10 @@ import {
   Tabs,
   PullRefresh,
   Sticky,
+  Icon,
 } from 'vant'
 
+Vue.use(Icon)
 Vue.use(Sticky)
 Vue.use(PullRefresh)
 Vue.use(Tab)
