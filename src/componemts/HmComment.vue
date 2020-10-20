@@ -12,7 +12,10 @@
         <div class="name">{{comment.user.nickname}}</div>
         <div class="date">{{comment.create_date}}</div>
       </div>
-      <div class="right">
+      <div
+        class="right"
+        @click="reply"
+      >
         回复
       </div>
     </div>
@@ -38,7 +41,10 @@ export default {
       } else {
         return num
       }
-    }
+    },
+    reply() {
+      this.$bus.$emit('reply', this.comment.id, this.comment.user.nickname)
+    },
   }
 }
 </script>

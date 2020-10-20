@@ -53,6 +53,7 @@
         </div>
       </div>
     </div>
+    <div ref="box"></div>
     <div class="comment">
       <hm-comment
         v-for="comment in commentLists"
@@ -76,11 +77,15 @@
         <div class="center">
           <van-icon
             name="chat-o"
-            badge="9"
+            :badge="detail.comment_length"
           />
         </div>
         <div class="right">
-          <van-icon name="star-o" />
+          <van-icon
+            name="star-o"
+            :class="{active:detail.has_star}"
+            @click="star"
+          />
         </div>
       </div>
       <div
@@ -89,13 +94,17 @@
       >
         <div class="left">
           <textarea
+            v-model="content"
             ref="textarea"
-            placeholder="请输入内容"
+            :placeholder="replyName?'回复:'+replyName:'请输入内容'"
             @blur="handleBlur"
           ></textarea>
         </div>
         <div class="right">
-          <div class="send">发送</div>
+          <div
+            class="send"
+            @mousedown="send"
+          >发送</div>
         </div>
       </div>
     </div>
@@ -110,12 +119,26 @@ export default {
         user: {}
       },
       commentLists: [],
-      isShow: false
+      isShow: false,
+      replyId: '',
+      replyName: '',
+      content: ''
     }
   },
   created() {
     this.getDetail()
     this.getComments()
+    // console.log(this.$route);
+
+    this.$bus.$on('reply', async (replyId, replyName) => {
+      // console.log('detail-- 走了');
+      this.replyId = replyId
+      this.replyName = replyName
+      this.isShow = true
+      await this.$nextTick()
+      this.$refs.textarea && this.$refs.textarea.focus()
+    })
+
   },
   methods: {
     async getDetail() {
@@ -170,12 +193,47 @@ export default {
       console.log('评论列表', res.data.data);
       this.commentLists = res.data.data
     },
-    handleFocus() {
+    async handleFocus() {
       this.isShow = true
+      await this.$nextTick()
+      this.$refs.textarea.focus()
+
+      // this.$nextTick(() => {
+      //   this.$refs.textarea.focus()
+      // })
+      // this.$nextTick().then(() => {
+      //   this.$refs.textarea.focus()
+      // })
     },
     handleBlur() {
       this.isShow = false
-
+      if (!this.content) {
+        this.replyId = ''
+        this.replyName = ''
+      }
+    },
+    async send() {
+      console.log('发送');
+      let res = await this.$axios.post(`/post_comment/${this.$route.params.id}`, {
+        content: this.content,
+        parent_id: this.replyId
+      })
+      console.log('评论结果', res.data);
+      const { statusCode, message } = res.data
+      if (statusCode === 200) {
+        this.$toast.success(message)
+        this.getComments()
+        this.content = ''
+        this.replyId = ''
+        this.replyName = ''
+        this.$refs.box.scrollIntoView()
+      }
+    },
+    async star() {
+      let res = await this.$axios.get(`/post_star/${this.$route.params.id}`)
+      console.log('收藏', res.data);
+      this.$toast(res.data.message)
+      this.getDetail()
     }
   }
 }
@@ -290,6 +348,9 @@ video {
       line-height: 40px;
       font-size: 24px;
       text-align: center;
+    }
+    .active {
+      color: #f00;
     }
   }
   .textarea {

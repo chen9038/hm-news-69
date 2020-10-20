@@ -12,7 +12,10 @@
       <div class="header">
         <div class="left">{{count}}楼 {{parent.user.nickname}}</div>
         <div class="center">{{parent.create_date}}</div>
-        <div class="right">回复</div>
+        <div
+          class="right"
+          @click="reply"
+        >回复</div>
       </div>
       <div class="content">
         {{parent.content}}
@@ -24,7 +27,12 @@
 <script>
 export default {
   props: ['parent', 'count'],
-  name: 'hm-floor'
+  name: 'hm-floor',
+  methods: {
+    reply() {
+      this.$bus.$emit('reply', this.parent.id, this.parent.user.nickname)
+    }
+  }
 }
 </script>
 
@@ -32,6 +40,7 @@ export default {
 .hm-floor {
   border: 1px solid #000;
   padding: 10px;
+  border-top: none;
   &.top {
     border-top: 1px solid red;
   }
